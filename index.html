@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Printing Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Inter', sans-serif; 
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+header { 
+  text-align: center; 
+  padding: 60px 20px; 
+  color: white; 
+  animation: fadeInDown 0.8s ease;
+}
+header h1 { 
+  font-size: 3.5em; 
+  font-weight: 700; 
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 20px rgba(0,0,0,0.2);
+}
+header p { 
+  font-size: 1.2em; 
+  opacity: 0.95;
+  font-weight: 400;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.card { 
+  background: white; 
+  padding: 40px; 
+  border-radius: 20px; 
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  margin-bottom: 30px;
+  animation: fadeInUp 0.8s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+}
+h2 { 
+  font-size: 1.8em;
+  margin-bottom: 25px;
+  color: #2d3748;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h2::before {
+  content: '';
+  width: 5px;
+  height: 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 3px;
+}
+label { 
+  font-weight: 600; 
+  margin-top: 20px; 
+  margin-bottom: 8px;
+  display: block;
+  color: #4a5568;
+  font-size: 0.95em;
+}
+input, select, textarea { 
+  width: 100%; 
+  padding: 14px 18px; 
+  margin-top: 5px; 
+  border-radius: 12px; 
+  border: 2px solid #e2e8f0;
+  font-size: 1em;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+  background: #f7fafc;
+}
+input:focus, select:focus, textarea:focus { 
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+button { 
+  width: 100%; 
+  padding: 16px; 
+  margin-top: 30px; 
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white; 
+  border: none; 
+  border-radius: 12px; 
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+button:hover { 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+}
+button:active {
+  transform: translateY(0);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+.error { border-color: #fc8181 !important; background: #fff5f5 !important; }
+.error-msg { 
+  color: #e53e3e; 
+  font-size: 0.85em; 
+  margin-top: 5px; 
+  display: none;
+  font-weight: 500;
+}
+.success { border-color: #48bb78 !important; background: #f0fff4 !important; }
+.price { 
+  font-weight: 700; 
+  margin-top: 20px; 
+  font-size: 2em;
+  color: #667eea;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-radius: 12px;
+}
+.price span {
+  display: block;
+  font-size: 0.5em;
+  color: #718096;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+footer { 
+  text-align: center; 
+  padding: 30px; 
+  color: white;
+  margin-top: 40px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.success-icon {
+  font-size: 4em;
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  header h1 { font-size: 2.5em; }
+  .card { padding: 25px; }
+  .grid { grid-template-columns: 1fr; }
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  animation: fadeInDown 0.8s ease;
+}
+.tab {
+  padding: 15px 40px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #4a5568;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.contact-info {
+  text-align: center;
+  padding: 60px 20px;
+}
+.contact-item {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+.contact-item:hover {
+  transform: translateY(-5px);
+}
+.contact-item .icon {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+.contact-item h3 {
+  font-size: 1.5em;
+  color: #2d3748;
+  margin-bottom: 15px;
+}
+.contact-item a {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.contact-item a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+.faq-item {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.faq-item:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+.faq-question {
+  padding: 20px 25px;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #2d3748;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.faq-question:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+.faq-arrow {
+  transition: transform 0.3s ease;
+  color: #667eea;
+  font-size: 0.9em;
+}
+.faq-arrow.open {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 25px;
+}
+.faq-answer.open {
+  max-height: 500px;
+  padding: 0 25px 20px 25px;
+}
+.faq-answer p {
+  color: #4a5568;
+  line-height: 1.8;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>3D Custom Service</h1>
+<p>Transform your ideas into reality with professional 3D printing</p>
+</header>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('home')">🏠 Home</button>
+  <button class="tab" onclick="switchTab('printer')">🖨️ Our Printer</button>
+  <button class="tab" onclick="switchTab('faq')">❓ FAQ</button>
+  <button class="tab" onclick="switchTab('contact')">📞 Contact Us</button>
+</div>
+
+<!-- Home Tab Content -->
+<div id="homeTab" class="tab-content active">
+
+<div class="grid">
+<div class="card">
+<h2>💰 Pricing Calculator</h2>
+<label>Estimated Weight (grams):</label>
+<input type="number" id="weight" placeholder="Enter weight in grams">
+<label>Material:</label>
+<select id="material">
+<option value="0.20">PLA - $0.20/g</option>
+<option value="0.25">ABS - $0.25/g</option>
+<option value="0.30">PETG - $0.30/g</option>
+<option value="0.40">TPU - $0.40/g</option>
+<option value="1.00">Carbon Fiber - $1.00/g</option>
+</select>
+<div class="price">
+<span>Estimated Price</span>
+<div id="p">$0.00</div>
+</div>
+</div>
+</div>
+
+<div class="card" id="formContainer">
+<h2>📝 Submit Your Request</h2>
+
+<!-- CAD Service Question -->
+<div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+  <h3 style="font-size: 1.2em; margin-bottom: 15px; color: #2d3748;">Do you need CAD modeling services?</h3>
+  <p style="color: #718096; margin-bottom: 20px; font-size: 0.95em;">Let us know if you'd like us to create a 3D model for you, or if you already have a file ready to print.</p>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+    <label style="margin: 0;">
+      <input type="radio" name="cad_service" value="Yes, I need CAD modeling services" required style="width: auto; margin-right: 8px;" onchange="toggleFormSections('cad')">
+      <span style="font-weight: 600;">🎨 Yes, I need CAD</span>
+      <br>
+      <small style="color: #718096; margin-left: 24px;">Design my model</small>
+    </label>
+    <label style="margin: 0;">
+      <input type="radio" name="cad_service" value="No, I have my own file" required style="width: auto; margin-right: 8px;" onchange="toggleFormSections('file')">
+      <span style="font-weight: 600;">📁 No, I have a file</span>
+      <br>
+      <small style="color: #718096; margin-left: 24px;">I'll upload it</small>
+    </label>
+  </div>
+</div>
+
+<form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" id="requestForm">
+  <input type="hidden" name="access_key" value="9410448a-3187-458c-84c3-734ced6af715">
+  <input type="hidden" name="redirect" value="false">
+  
+  <label>Your Email:</label>
+  <input type="email" name="email" placeholder="name@example.com" required>
+  
+  <label>Full Name:</label>
+  <input type="text" name="name" placeholder="John Doe" required>
+  
+  <label>Phone Number:</label>
+  <input type="tel" name="phone" id="phone" placeholder="XXX-XXX-XXXX" required>
+  <span class="error-msg" id="phoneError">Please enter a valid 10-digit US phone number</span>
+  
+  <label>Shipping Address:</label>
+  <input type="text" name="address" id="address" placeholder="123 Main Street, City, State" required>
+  <span class="error-msg" id="addressError">Please enter a complete address</span>
+  
+  <label>Zip Code:</label>
+  <input type="text" name="zipcode" id="zipcode" placeholder="12345" required maxlength="5">
+  <span class="error-msg" id="zipcodeError">Please enter a valid 5-digit US zip code</span>
+  
+  <div id="fileUploadSection">
+    <label>Upload STL File (optional):</label>
+    <input type="file" name="attachment" id="fileInput" accept=".stl">
+  </div>
+  
+  <div id="descriptionSection">
+    <label>Project Description:</label>
+    <textarea name="description" id="descriptionInput" rows="4" placeholder="Tell us about your project, preferred colors, quantity, and any special requirements..." required></textarea>
+  </div>
+  
+  <button type="submit">🚀 Submit Request</button>
+</form>
+</div>
+
+<div class="card" id="successMessage" style="display: none; text-align: center;">
+<div class="success-icon">✓</div>
+<h2 style="justify-content: center;">Submission Accepted!</h2>
+<p style="font-size: 1.1em; color: #4a5568; margin: 20px 0;">Thank you for your request. We've received your information and will review your project shortly.</p>
+<p style="color: #718096; margin-bottom: 20px;">You should receive a confirmation email at the address you provided.</p>
+<p style="color: #667eea; font-weight: 600; font-size: 1.1em;">We'll get back to you within 24-48 hours with a detailed quote.</p>
+<button onclick="location.reload()" style="margin-top: 30px; max-width: 300px; margin-left: auto; margin-right: auto;">Submit Another Request</button>
+</div>
+</div>
+
+<!-- FAQ Tab Content -->
+<div id="faqTab" class="tab-content">
+  <div class="card" style="max-width: 900px; margin: 0 auto;">
+    <h2>❓ Frequently Asked Questions</h2>
+    <p style="color: #718096; font-size: 1.1em; margin-bottom: 30px;">Find answers to common questions about our 3D printing service</p>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(1)">
+        <span>📦 How long does shipping take?</span>
+        <span class="faq-arrow" id="arrow1">▼</span>
+      </div>
+      <div class="faq-answer" id="faq1">
+        <p>Shipping takes approximately <strong>5-7 business days</strong> after your order has been printed and packaged.</p>
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(2)">
+        <span>📄 What file formats do you accept?</span>
+        <span class="faq-arrow" id="arrow2">▼</span>
+      </div>
+      <div class="faq-answer" id="faq2">
+        <p>We <strong>only accept STL files</strong>. Any other file formats will be rejected and you will be asked to provide the correct format. Please ensure your file is in STL format before submitting.</p>
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(3)">
+        <span>🔄 Can I request revisions?</span>
+        <span class="faq-arrow" id="arrow3">▼</span>
+      </div>
+      <div class="faq-answer" id="faq3">
+        <p>Yes! <strong>Revisions will automatically happen</strong> if there are any issues with your print or if it doesn't meet your expectations. We're committed to ensuring you're completely satisfied with the final product.</p>
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(4)">
+        <span>📧 How will you contact me after I put in my order?</span>
+        <span class="faq-arrow" id="arrow4">▼</span>
+      </div>
+      <div class="faq-answer" id="faq4">
+        <p>We will contact you via <strong>email</strong>. Please make sure to provide a valid email address when submitting your order so we can keep you updated throughout the process.</p>
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFAQ(5)">
+        <span>💰 What is your refund and cancellation policy?</span>
+        <span class="faq-arrow" id="arrow5">▼</span>
+      </div>
+      <div class="faq-answer" id="faq5">
+        <p><strong>Cancellations:</strong> You will have <strong>2 days to cancel your order</strong>. If the order has not been cancelled by then, the payment will go through and production will begin.</p>
+        <p style="margin-top: 10px;"><strong>Refunds/Reprints:</strong> If something has occurred during the print process, we will either <strong>refund or reprint your product</strong> depending on your request.</p>
+        <p style="margin-top: 10px;"><strong>Returns:</strong> We will <strong>NOT accept returns</strong> because 3D prints are entirely custom-made and cannot be reused for another customer.</p>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Our Printer Tab Content -->
+<div id="printerTab" class="tab-content">
+  <div class="card" style="max-width: 900px; margin: 0 auto;">
+    <h2>🖨️ State-of-the-Art Technology</h2>
+    
+    <h3 style="color: #667eea; font-size: 2em; text-align: center; margin: 30px 0;">Bambu Lab A1</h3>
+    
+    <p style="font-size: 1.1em; line-height: 1.8; color: #4a5568; margin-bottom: 30px;">
+      We use the cutting-edge <strong>Bambu Lab A1</strong>, a state-of-the-art 3D printer that combines precision, speed, and reliability. This professional-grade machine ensures every print meets the highest quality standards, delivering exceptional results for both prototypes and production pieces.
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px;">
+      <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 25px; border-radius: 12px;">
+        <h4 style="color: #2d3748; margin-bottom: 10px;">📏 Build Volume</h4>
+        <p style="color: #4a5568; margin: 0; font-size: 1.1em;">256 × 256 × 256 mm</p>
+      </div>
+      
+      <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 25px; border-radius: 12px;">
+        <h4 style="color: #2d3748; margin-bottom: 10px;">⚡ Print Speed</h4>
+        <p style="color: #4a5568; margin: 0; font-size: 1.1em;">Up to 500 mm/s</p>
+      </div>
+      
+      <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 25px; border-radius: 12px;">
+        <h4 style="color: #2d3748; margin-bottom: 10px;">🎯 Layer Resolution</h4>
+        <p style="color: #4a5568; margin: 0; font-size: 1.1em;">0.05 - 0.35 mm</p>
+      </div>
+      
+      <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 25px; border-radius: 12px;">
+        <h4 style="color: #2d3748; margin-bottom: 10px;">🌡️ Heated Bed</h4>
+        <p style="color: #4a5568; margin: 0; font-size: 1.1em;">Up to 100°C</p>
+      </div>
+      
+      <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 25px; border-radius: 12px;">
+        <h4 style="color: #2d3748; margin-bottom: 10px;">🎨 Material Support</h4>
+        <p style="color: #4a5568; margin: 0; font-size: 1.1em;">PLA, ABS, PETG, TPU & More</p>
+      </div>
+      
+      <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 25px; border-radius: 12px;">
+        <h4 style="color: #2d3748; margin-bottom: 10px;">🤖 Auto Calibration</h4>
+        <p style="color: #4a5568; margin: 0; font-size: 1.1em;">AI-Powered Precision</p>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px;">
+      <button onclick="showWhyBambuModal()" style="padding: 20px 40px; font-size: 1.2em; max-width: 400px;">
+        🌟 Why Bambu Lab A1?
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Why Bambu Lab Modal -->
+<div id="whyBambuModal" class="modal" style="display: none;">
+  <div class="modal-content" style="max-width: 600px; background: white; border-radius: 30px;">
+    <div style="text-align: right; margin-bottom: 10px;">
+      <button onclick="closeWhyBambuModal()" style="width: auto; padding: 8px 16px; margin: 0; background: #e2e8f0; color: #2d3748; font-size: 1.2em; font-weight: bold; border-radius: 50%;">✕</button>
+    </div>
+    <h3 style="color: #667eea; font-size: 1.8em; margin-bottom: 20px; text-align: center;">Why Bambu Lab A1?</h3>
+    <div style="color: #2d3748; font-size: 1.1em; line-height: 1.8;">
+      <p style="margin-bottom: 20px; color: #2d3748;">
+        The <strong>Bambu Lab A1</strong> represents the pinnacle of consumer 3D printing technology, delivering professional-grade results at unprecedented speeds.
+      </p>
+      <ul style="text-align: left; padding-left: 20px; margin-bottom: 20px; color: #2d3748;">
+        <li style="margin-bottom: 12px;"><strong>Advanced Automatic Calibration:</strong> AI-powered bed leveling and flow calibration ensure perfect first layers every time</li>
+        <li style="margin-bottom: 12px;"><strong>Vibration Compensation:</strong> Active vibration control allows for faster print speeds without sacrificing quality</li>
+        <li style="margin-bottom: 12px;"><strong>Direct-Drive Extruder:</strong> Superior filament control enables printing with flexible materials like TPU with ease</li>
+        <li style="margin-bottom: 12px;"><strong>Multi-Material Ready:</strong> Compatible with the AMS (Automatic Material System) for multi-color and multi-material prints</li>
+        <li style="margin-bottom: 12px;"><strong>Faster Turnaround:</strong> Print speeds up to 500 mm/s mean your projects are completed in record time</li>
+      </ul>
+      <p style="margin: 0; font-weight: 600; text-align: center; color: #667eea;">
+        This means you get superior quality, faster delivery, and the ability to create complex designs that other printers simply can't handle.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Us Tab Content -->
+<div id="contactTab" class="tab-content">
+  <div class="contact-info">
+    <h2 style="color: white; font-size: 2.5em; margin-bottom: 40px;">Get In Touch</h2>
+    
+    <div class="contact-item">
+      <div class="icon">📧</div>
+      <h3>Email Us</h3>
+      <a href="mailto:anay.bhagavan@gmail.com">anay.bhagavan@gmail.com</a>
+    </div>
+    
+    <div class="contact-item">
+      <div class="icon">📱</div>
+      <h3>Call Us</h3>
+      <a href="tel:+15106417864">(510) 641-7864</a>
+    </div>
+    
+    <div class="contact-item">
+      <div class="icon">⏰</div>
+      <h3>Response Time</h3>
+      <p style="font-size: 1.1em; color: #4a5568; margin: 0;">We typically respond within 24-48 hours</p>
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 3D Custom - Bringing Your Ideas to Life</footer>
+</div>
+
+<script>
+// Tab switching
+function switchTab(tab) {
+  // Update tab buttons
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // Update tab content
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  if (tab === 'home') {
+    document.getElementById('homeTab').classList.add('active');
+  } else if (tab === 'printer') {
+    document.getElementById('printerTab').classList.add('active');
+  } else if (tab === 'faq') {
+    document.getElementById('faqTab').classList.add('active');
+  } else {
+    document.getElementById('contactTab').classList.add('active');
+  }
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// FAQ Toggle
+function toggleFAQ(num) {
+  const answer = document.getElementById('faq' + num);
+  const arrow = document.getElementById('arrow' + num);
+  
+  answer.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// Why Bambu Lab modal functions
+function showWhyBambuModal() {
+  const modal = document.getElementById('whyBambuModal');
+  modal.style.display = 'flex';
+}
+
+function closeWhyBambuModal() {
+  const modal = document.getElementById('whyBambuModal');
+  modal.style.display = 'none';
+}
+
+// Close modal when clicking outside of it
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('whyBambuModal');
+  if (e.target === modal) {
+    closeWhyBambuModal();
+  }
+});
+
+// Pricing calculator
+function calc() {
+  let w = parseFloat(document.getElementById("weight").value) || 0;
+  let rate = parseFloat(document.getElementById("material").value);
+  document.getElementById("p").textContent = "$" + (w * rate).toFixed(2);
+}
+document.getElementById("weight").addEventListener("input", calc);
+document.getElementById("material").addEventListener("change", calc);
+
+// Toggle form sections based on CAD service choice
+function toggleFormSections(choice) {
+  const fileSection = document.getElementById('fileUploadSection');
+  const descSection = document.getElementById('descriptionSection');
+  const fileInput = document.getElementById('fileInput');
+  const descInput = document.getElementById('descriptionInput');
+  
+  if (choice === 'cad') {
+    // User needs CAD - show description, hide file upload
+    fileSection.style.display = 'none';
+    descSection.style.display = 'block';
+    fileInput.removeAttribute('required');
+    descInput.setAttribute('required', 'required');
+  } else {
+    // User has file - show file upload, hide description
+    fileSection.style.display = 'block';
+    descSection.style.display = 'none';
+    fileInput.setAttribute('required', 'required');
+    descInput.removeAttribute('required');
+  }
+}
+
+// Validation functions
+function validatePhone(phone) {
+  const cleaned = phone.replace(/\D/g, '');
+  return cleaned.length === 10;
+}
+
+function showError(fieldId, errorId) {
+  document.getElementById(fieldId).classList.add('error');
+  document.getElementById(fieldId).classList.remove('success');
+  document.getElementById(errorId).style.display = 'block';
+}
+
+function showSuccess(fieldId, errorId) {
+  document.getElementById(fieldId).classList.remove('error');
+  document.getElementById(fieldId).classList.add('success');
+  document.getElementById(errorId).style.display = 'none';
+}
+
+// Phone validation
+document.getElementById('phone').addEventListener('blur', function() {
+  if (validatePhone(this.value)) {
+    showSuccess('phone', 'phoneError');
+  } else {
+    showError('phone', 'phoneError');
+  }
+});
+
+// Zip code validation
+document.getElementById('zipcode').addEventListener('input', function() {
+  this.value = this.value.replace(/\D/g, '').slice(0, 5);
+  
+  if (this.value.length === 5) {
+    showSuccess('zipcode', 'zipcodeError');
+  } else if (this.value.length > 0) {
+    showError('zipcode', 'zipcodeError');
+  }
+});
+
+// Address validation
+document.getElementById('address').addEventListener('input', function() {
+  if (this.value.length >= 15) {
+    showSuccess('address', 'addressError');
+  } else if (this.value.length > 0) {
+    showError('address', 'addressError');
+  }
+});
+
+// Form submission with validation
+document.getElementById("requestForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  
+  // Validate all fields before submission
+  const phone = document.getElementById('phone').value;
+  const address = document.getElementById('address').value;
+  const zipcode = document.getElementById('zipcode').value;
+  
+  let isValid = true;
+  
+  if (!validatePhone(phone)) {
+    showError('phone', 'phoneError');
+    isValid = false;
+  }
+  
+  if (address.length < 15) {
+    showError('address', 'addressError');
+    isValid = false;
+  }
+  
+  if (zipcode.length !== 5) {
+    showError('zipcode', 'zipcodeError');
+    isValid = false;
+  }
+  
+  if (!isValid) {
+    alert('Please fix the errors in the form before submitting.');
+    return;
+  }
+  
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  
+  submitBtn.textContent = "Sending...";
+  submitBtn.disabled = true;
+  
+  try {
+    const formData = new FormData(form);
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData
+    });
+    
+    if (response.ok) {
+      document.getElementById("formContainer").style.display = "none";
+      document.getElementById("successMessage").style.display = "block";
+      document.getElementById("successMessage").scrollIntoView({ behavior: "smooth" });
+    } else {
+      throw new Error("Submission failed");
+    }
+  } catch (error) {
+    alert("There was an error submitting your request. Please try again.");
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
