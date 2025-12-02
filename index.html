@@ -416,6 +416,71 @@ footer {
   <div class="card" style="max-width: 900px; margin: 0 auto;">
     <h2>❓ Frequently Asked Questions</h2>
     <p style="color: #718096; font-size: 1.1em; margin-bottom: 30px;">Find answers to common questions about our 3D printing service</p>
+<!-- Place this button after your FAQ items, before the card's closing </div> tag -->
+<button onclick="openFaqModal()" style="width:100%;margin:24px 0 0 0;padding:18px;font-size:1.2em;border-radius:12px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;font-weight:600;box-shadow:0 4px 15px rgba(102,126,234,0.2);border:none;cursor:pointer;">
+  ❓ Have another question? Ask us!
+</button>
+
+<!-- Place this popup form anywhere near the end of <body> just before </body> -->
+<div id="faqModal" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(50,50,85,.55);align-items:center;justify-content:center;">
+  <div style="background:white;max-width:400px;padding:36px 24px;box-shadow:0 16px 60px rgba(0,0,0,0.2);border-radius:18px;text-align:center;position:relative;">
+    <button onclick="closeFaqModal()" style="position:absolute;top:15px;right:15px;border:none;background:#e2e8f0;font-weight:bold;font-size:1.2em;border-radius:50%;width:36px;height:36px;cursor:pointer;">✕</button>
+    <h3 style="color:#667eea;font-size:1.35em;margin-bottom:12px;">Do you have any additional questions?</h3>
+    <form id="faqFormPopup" action="https://api.web3forms.com/submit" method="POST" style="margin-top:12px;">
+      <input type="hidden" name="access_key" value="c2a13b3c-55c0-497e-9ebb-60f0deb30255">
+      <input type="hidden" name="subject" value="FAQ Website Question">
+      <input type="hidden" name="from_name" value="3D Custom Service FAQ Popup">
+      <input type="hidden" name="redirect" value="false">
+      <label for="faq_popup_email" style="display:block;text-align:left;color:#2d3748;font-weight:600;">Your Email:</label>
+      <input type="email" id="faq_popup_email" name="email" required placeholder="name@example.com" style="width:100%;padding:12px;margin-bottom:10px;border-radius:8px;border:1.5px solid #e2e8f0;">
+      <label for="faq_popup_message" style="display:block;text-align:left;color:#2d3748;font-weight:600;">Your Question:</label>
+      <textarea name="message" id="faq_popup_message" required rows="3" placeholder="Type your question here..." style="width:100%;padding:12px;border-radius:8px;border:1.5px solid #e2e8f0;"></textarea>
+      <button type="submit" style="display:block;width:100%;margin-top:22px;padding:14px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border:none;border-radius:10px;font-weight:600;font-size:1em;cursor:pointer;">Submit</button>
+      <div id="faqPopupMsg" style="margin-top:10px;font-size:1em;"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+// FAQ modal open/close
+function openFaqModal() {
+  document.getElementById('faqModal').style.display = 'flex';
+}
+function closeFaqModal() {
+  document.getElementById('faqModal').style.display = 'none';
+}
+document.addEventListener('click', function(e) {
+  let modal = document.getElementById('faqModal');
+  if(e.target === modal) closeFaqModal();
+});
+// FAQ popup form submit handler for Web3Forms AJAX send-and-feedback
+document.getElementById('faqFormPopup').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const msgDiv = document.getElementById('faqPopupMsg');
+  msgDiv.style.color = "#717171";
+  msgDiv.textContent = "Sending...";
+  try {
+    const formData = new FormData(form);
+    const resp = await fetch(form.action, {
+      method: "POST",
+      body: formData
+    });
+    const result = await resp.json();
+    if(result.success) {
+      msgDiv.style.color = "#38a169";
+      msgDiv.textContent = "Thank you! Your question has been received.";
+      form.reset();
+    } else {
+      msgDiv.style.color = "#e53e3e";
+      msgDiv.textContent = "There was a problem. Please try again later.";
+    }
+  } catch {
+    msgDiv.style.color = "#e53e3e";
+    msgDiv.textContent = "There was a problem. Please try again.";
+  }
+});
+</script>
     
     <div class="faq-item">
       <div class="faq-question" onclick="toggleFAQ(1)">
