@@ -167,6 +167,7 @@
   <button class="tab" role="tab" data-tab="printer">🖨️ Our Printer</button>
   <button class="tab" role="tab" data-tab="faq">❓ FAQ</button>
   <button class="tab" role="tab" data-tab="contact">📞 Contact Us</button>
+  <button class="tab" role="tab" data-tab="revisions">✏️ Request Revisions</button>
 </div>
 
 <!-- Home tab -->
@@ -450,6 +451,27 @@
       <h3>Response Time</h3>
       <p style="color:var(--muted)">We typically respond within 24–48 hours.</p>
     </div>
+  </div>
+</section>
+
+<section id="revisionsTab" class="tab-content" hidden>
+  <div class="card" style="max-width:640px;margin:0 auto">
+    <h2>✏️ Request a 3D Print Revision</h2>
+    <form action="https://api.web3forms.com/submit" method="POST">
+
+      <input type="hidden" name="access_key" value="4867d487-8f82-4363-b795-002a3c3d10e4">
+
+      <label for="printName">Print Name or Description</label>
+      <input type="text" id="printName" name="printName" required><br><br>
+
+      <label for="revisionRequest">Describe the Revision You Need</label>
+      <textarea id="revisionRequest" name="revisionRequest" rows="6" required></textarea><br><br>
+
+      <label for="reviseEmail">Your Email (optional)</label>
+      <input type="email" id="reviseEmail" name="email"><br><br>
+
+      <button type="submit" class="btn">Send Revision Request</button>
+    </form>
   </div>
 </section>
 
