@@ -725,12 +725,37 @@
 
     <h3 style="text-align:center;color:var(--bg-grad-1);margin-bottom:12px">Privacy Policy</h3>
 
-    <p style="color:var(--muted);line-height:1.5;">
-      We only use your submitted information to contact you and complete your order. 
-      We never sell or share your data.
+    <!-- ⭐ TABLE OF CONTENTS GOES RIGHT HERE ⭐ -->
+    <div style="margin-bottom:12px;">
+      <h4 style="margin-bottom:6px;font-size:1rem;color:var(--bg-grad-1);">Contents</h4>
+      <ul style="list-style:none;padding-left:0;line-height:1.4;">
+        <li><a href="#pp-1" style="color:var(--bg-grad-1);text-decoration:underline;">1. What We Collect</a></li>
+        <li><a href="#pp-2" style="color:var(--bg-grad-1);text-decoration:underline;">2. How We Use It</a></li>
+        <li><a href="#pp-3" style="color:var(--bg-grad-1);text-decoration:underline;">3. File Privacy</a></li>
+        <li><a href="#pp-4" style="color:var(--bg-grad-1);text-decoration:underline;">4. Data Removal</a></li>
+      </ul>
+    </div>
+    <!-- ⭐ END TOC ⭐ -->
+
+    <!-- CONTENT SECTIONS -->
+    <p id="pp-1" style="color:var(--muted);line-height:1.5;margin-top:12px;">
+      <strong>1. What We Collect</strong><br>
+      We collect information you submit (name, email, phone number, address, STL/CAD files).
     </p>
-    <p style="color:var(--muted);line-height:1.5;margin-top:12px;">
-      Files you upload remain confidential and are only used for printing your order.
+
+    <p id="pp-2" style="color:var(--muted);line-height:1.5;margin-top:12px;">
+      <strong>2. How We Use It</strong><br>
+      This information is only used to contact you and complete your order.
+    </p>
+
+    <p id="pp-3" style="color:var(--muted);line-height:1.5;margin-top:12px;">
+      <strong>3. File Privacy</strong><br>
+      Your files remain confidential and are used only for printing.
+    </p>
+
+    <p id="pp-4" style="color:var(--muted);line-height:1.5;margin-top:12px;">
+      <strong>4. Data Removal</strong><br>
+      You may request deletion of your data anytime by emailing <strong>anay.bhagavan@gmail.com</strong>.
     </p>
   </div>
 </div>
@@ -741,17 +766,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("privacyPolicy");
   const closeBtn = document.getElementById("privacyClose");
 
-  // open modal
   link.addEventListener("click", () => {
     modal.style.display = "flex";
   });
 
-  // close modal
   closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
   });
 
-  // close when clicking outside
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.style.display = "none";
   });
@@ -760,5 +782,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
 </body>
 </html>
+
