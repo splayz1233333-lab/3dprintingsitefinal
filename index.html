@@ -494,7 +494,12 @@
   </div>
 </section>
 
-<footer>© 2025 3D Custom — Bringing Your Ideas to Life</footer>
+<footer>
+  © 2025 3D Custom — Bringing Your Ideas to Life |
+  <a id="privacyLink" style="color:#fff;text-decoration:underline;cursor:pointer;">Privacy Policy</a>
+</footer>
+
+
 ```
 
   </div>
@@ -708,7 +713,52 @@
     // Prevent accidental form submit by Enter in material selection
     document.querySelectorAll('.material-card').forEach(c=>c.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') e.preventDefault(); }));
   </script>
+  <!-- Compact footer with privacy link (replace your current footer) -->
+
+
+<!-- PRIVACY MODAL -->
+<div id="privacyPolicy" class="modal" style="display:none;align-items:center;justify-content:center;">
+  <div class="modal-content" style="max-width:420px;max-height:70vh;overflow-y:auto;padding:20px;border-radius:14px;">
+    <div style="text-align:right">
+      <button id="privacyClose" style="border:0;background:#eef2ff;padding:6px 8px;border-radius:10px;cursor:pointer;">✕</button>
+    </div>
+
+    <h3 style="text-align:center;color:var(--bg-grad-1);margin-bottom:12px">Privacy Policy</h3>
+
+    <p style="color:var(--muted);line-height:1.5;">
+      We only use your submitted information to contact you and complete your order. 
+      We never sell or share your data.
+    </p>
+    <p style="color:var(--muted);line-height:1.5;margin-top:12px;">
+      Files you upload remain confidential and are only used for printing your order.
+    </p>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const link = document.getElementById("privacyLink");
+  const modal = document.getElementById("privacyPolicy");
+  const closeBtn = document.getElementById("privacyClose");
+
+  // open modal
+  link.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  // close modal
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  // close when clicking outside
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  });
+});
+</script>
+
+
 
 </body>
 </html>
-
