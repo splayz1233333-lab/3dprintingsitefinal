@@ -294,40 +294,59 @@
       </div>
     </div>
 
-    <form id="requestForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" novalidate>
-      <input type="hidden" name="access_key" value="9410448a-3187-458c-84c3-734ced6af715">
-      <input type="hidden" name="redirect" value="false">
-
-      <label for="email">Your Email</label>
-      <input id="email" name="email" type="email" placeholder="name@example.com" required />
-
-      <label for="name">Full Name</label>
-      <input id="name" name="name" type="text" placeholder="John Doe" required />
-
-      <label for="phone">Phone Number</label>
-      <input id="phone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" required />
-      <div id="phoneError" class="error-msg" aria-live="assertive">Please enter a valid 10-digit US phone number</div>
-
-      <label for="address">Shipping Address</label>
-      <input id="address" name="address" type="text" placeholder="123 Main Street, City, State" required />
-      <div id="addressError" class="error-msg" aria-live="assertive">Please enter a complete address (15+ characters)</div>
-
-      <label for="zipcode">Zip Code</label>
-      <input id="zipcode" name="zipcode" type="text" placeholder="12345" maxlength="5" inputmode="numeric" required />
-      <div id="zipcodeError" class="error-msg" aria-live="assertive">Please enter a valid 5-digit US zip code</div>
-
-      <div id="fileUploadSection" style="margin-top:12px">
-        <label for="fileInput">Upload STL File (required)</label>
-        <input id="fileInput" name="attachment" type="file" accept=".stl" />
-      </div>
-
-      <div id="descriptionSection" style="margin-top:12px;display:none">
-        <label for="descriptionInput">Project Description</label>
-        <textarea id="descriptionInput" name="description" rows="4" placeholder="Tell us about your project, preferred colors, quantity, and any special requirements..."></textarea>
-      </div>
-
+  <form id="requestForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" novalidate>
+    <input type="hidden" name="access_key" value="9410448a-3187-458c-84c3-734ced6af715">
+    <input type="hidden" name="redirect" value="false">
+  
+    <label for="email">Your Email</label>
+    <input id="email" name="email" type="email" placeholder="name@example.com" required />
+  
+    <label for="name">Full Name</label>
+    <input id="name" name="name" type="text" placeholder="John Doe" required />
+  
+    <label for="phone">Phone Number</label>
+    <input id="phone" name="phone" type="tel" placeholder="XXX-XXX-XXXX" required />
+    <div id="phoneError" class="error-msg" aria-live="assertive">Please enter a valid 10-digit US phone number</div>
+  
+    <label for="address">Shipping Address</label>
+    <input id="address" name="address" type="text" placeholder="123 Main Street, City, State" required />
+    <div id="addressError" class="error-msg" aria-live="assertive">Please enter a complete address (15+ characters)</div>
+  
+    <label for="zipcode">Zip Code</label>
+    <input id="zipcode" name="zipcode" type="text" placeholder="12345" maxlength="5" inputmode="numeric" required />
+    <div id="zipcodeError" class="error-msg" aria-live="assertive">Please enter a valid 5-digit US zip code</div>
+  
+    <!-- NEW FIELD: Quantity -->
+    <label for="quantity">Quantity</label>
+    <input id="quantity" name="quantity" type="number" min="1" placeholder="1" required />
+  
+    <!-- NEW FIELD: Preferred Color -->
+    <label for="color">Preferred Color (Optional)</label>
+    <input id="color" name="color" type="text" placeholder="Black, White, Red, etc." />
+  
+    <!-- NEW FIELD: Size / Dimensions -->
+    <label for="dimensions">Approx. Size / Dimensions (Optional)</label>
+    <input id="dimensions" name="dimensions" type="text" placeholder='e.g., "120mm tall" or "50×40×30 mm"' />
+  
+    <div id="fileUploadSection" style="margin-top:12px">
+      <label for="fileInput">Upload STL File (required)</label>
+      <input id="fileInput" name="attachment" type="file" accept=".stl" />
+    </div>
+  
+    <div id="descriptionSection" style="margin-top:12px;display:none">
+      <label for="descriptionInput">Project Description</label>
+      <textarea id="descriptionInput" name="description" rows="4" placeholder="Tell us about your project, preferred colors, quantity, and any special requirements..."></textarea>
+    </div>
+  
+    <!-- NEW: Terms & Conditions Checkbox -->
+    <label style="display:flex;align-items:center;gap:8px;margin-top:16px">
+      <input id="termsCheck" type="checkbox" required />
+      <span>I agree to the Terms & Conditions and understand the refund/cancellation policy.</span>
+    </label>
+  
       <button id="submitBtn" type="submit" class="btn" style="margin-top:14px">🚀 Submit Request</button>
     </form>
+
   </div>
 
   <div id="successMessage" class="card" style="display:none;text-align:center">
