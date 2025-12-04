@@ -338,6 +338,16 @@
     <div id="descriptionSection" style="margin-top:12px;display:none">
       <label for="descriptionInput">Project Description</label>
       <textarea id="descriptionInput" name="description" rows="4" placeholder="Tell us about your project, preferred colors, quantity, and any special requirements..."></textarea>
+      <label for="projectImages">Attach Images (Optional)</label>
+<input 
+  type="file" 
+  id="projectImages" 
+  name="projectImages[]" 
+  accept="image/png, image/jpeg, image/webp" 
+  multiple
+  style="margin-bottom:12px;"
+>
+
     </div>
   
     <!-- NEW: Terms & Conditions Checkbox -->
@@ -478,7 +488,8 @@
 <section id="revisionsTab" class="tab-content" hidden>
   <div class="card" style="max-width:640px;margin:0 auto">
     <h2>✏️ Request a 3D Print Revision</h2>
-    <form action="https://api.web3forms.com/submit" method="POST">
+    <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+
 
       <input type="hidden" name="access_key" value="4867d487-8f82-4363-b795-002a3c3d10e4">
 
@@ -904,11 +915,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target === modal) modal.style.display = "none";
   });
 });
-</script>
+</script>]
+
 
 
 
 
 </body>
 </html>
-
